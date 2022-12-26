@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Unbounded:wght@500&display=swap');
+
+
+/* Navbar */ 
+.navBarBox {
+  background-color: rgba(120, 180, 153, 0.401) !important;
+  font-family: Verdana, Geneva, Tahoma, sans-serif
+}
+
+.brandTitle {
+  font-size: x-large !important;
+  font-family: 'Inter', sans-serif;
+  font-family: 'Unbounded', cursive;
+  color: rgb(43, 89, 85) !important;
+}
+
+.shopDrop {
+  color: rgb(43, 89, 85);
+}
+
+.icon {
+  color: rgb(43, 89, 85);
+}
+
+/* Footer */
+.footerNav {
+  font-size: smaller;
+  color: rgb(43, 89, 85);
+  text-decoration: none;
+}
+
+/* Home Page */ 
+.row {
+  min-height: 500px;
+}
+
+.even-box {
+  background-color: rgba(205, 230, 228, 0.443);
+}
+
+.odd-box {
+  background-color: rgba(97, 138, 120, 0.402);
+}
+
+.clothes {
+  background-image: url("./components/images/outfit2.png");
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.shoes {
+  background-image: url("./components/images/shoes.png");
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.home-decor {
+  background-image: url("./components/images/cups.png");
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.accessories {
+  background-image: url("./components/images/belt2.png");
+  background-size: cover;
+  opacity: 0.6;
+}
+
+.title { 
+  font-family: 'Inter', sans-serif;
+  font-family: 'Unbounded', cursive;
+  font-size: x-large;
+  opacity: initial;
+  font-weight: 900;
+}
+
+.even-box .title {
+  color: rgb(124, 157, 171);
+}
+
+.odd-box .title {
+  color: rgb(76, 97, 106);
+}
+
+.titleGroup {
+  margin-left: 20px;
+  margin-top: 50px;
+}
+
+.shopNow {
+  text-decoration: underline;
+  margin-left: 20px;
+  font-size: large;
+  color: black;
+}
+
+.shop {
+  color: black;
+}
+
+/* Login Page */
+.titleMessage {
+  color: rgb(82, 115, 100);
+  font-size: xx-large;
+  font-weight: 400;
+  padding-top: 10rem;
+}
+
+.loginQuestion {
+  text-decoration: none;
+  color: rgb(82, 115, 100);
+}
+
+.loginBtn {
+  border-color: rgb(82, 115, 100);
+  color: rgb(82, 115, 100);
+}
+
+.loginBtn:hover {
+  border-color:  rgb(82, 115, 100);
+  background-color: rgb(82, 115, 100);
+}
+
+/* Login Page */
+.cardBox {
+  margin-left: 35%;
+
+}
+
+.orderHistoryCard {
+  margin-top: 25%
+}
