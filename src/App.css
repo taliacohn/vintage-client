@@ -130,3 +130,9 @@
 .orderHistoryCard {
   margin-top: 25%
 }
+
+/* about */
+.pic {
+  border-radius: 10%;
+  border: 3px solid rgb(82, 115, 100);
+}

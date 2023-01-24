@@ -1,10 +1,11 @@
+import { useState, useMemo } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+// Style
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
 
-// Pages
+// Components
 import Home from "./components/Home";
 import About from "./components/About";
 import Login from "./components/Login";
@@ -15,28 +16,37 @@ import Clothing from "./components/Clothing";
 import Shoes from "./components/Shoes";
 import Accessories from "./components/Accessories";
 import HomeDecor from "./components/HomeDecor";
+import NavBar from "./components/NavBar";
+import Footer from "./components/Footer";
+import { UserContext } from "./components/UserContext";
 
 function App() {
+  const [user, setUser] = useState(null);
+
+  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+
   return (
     <div className="App">
-      <Router>
-        <NavBar />
+      <UserContext.Provider value={{ user, setUser }}>
+        <Router>
+          <NavBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/account/login" element={<Login />} />
-          <Route path="/account/signup" element={<SignUp />} />
-          <Route path="/account/user" element={<UserPage />} />
-          <Route path="/account/edit" element={<EditDetails />} />
-          <Route path="/products/clothes" element={<Clothing />} />
-          <Route path="/products/shoes" element={<Shoes />} />
-          <Route path="/products/accessories" element={<Accessories />} />
-          <Route path="/products/homedecor" element={<HomeDecor />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/account/login" element={<Login />} />
+            <Route path="/account/signup" element={<SignUp />} />
+            <Route path="/account/user" element={<UserPage />} />
+            <Route path="/account/edit" element={<EditDetails />} />
+            <Route path="/products/clothes" element={<Clothing />} />
+            <Route path="/products/shoes" element={<Shoes />} />
+            <Route path="/products/accessories" element={<Accessories />} />
+            <Route path="/products/homedecor" element={<HomeDecor />} />
+          </Routes>
 
-        <Footer />
-      </Router>
+          <Footer />
+        </Router>
+      </UserContext.Provider>
     </div>
   );
 }

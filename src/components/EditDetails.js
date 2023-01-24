@@ -18,8 +18,6 @@ function EditDetails() {
 
   const navigate = useNavigate();
 
-  axios.defaults.withCredentials = true;
-
   //   function getInfo() {
   //     checkLoggedIn().then((response) => {
   //       if (response.data.loggedIn == true) {

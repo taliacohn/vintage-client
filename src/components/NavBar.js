@@ -1,30 +1,15 @@
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useContext } from "react";
+import { UserContext } from "./UserContext";
 
 function NavBar() {
-  const navigate = useNavigate();
-  axios.defaults.withCredentials = true;
-
-  function checkLoggedIn() {
-    return axios.get("http://localhost:3001/isLoggedIn");
-  }
-
-  function loadPage() {
-    console.log("loading...");
-    checkLoggedIn().then((response) => {
-      if (response.data.loggedIn) {
-        navigate("account/user");
-      } else {
-        navigate("/account/login");
-      }
-    });
-  }
+  const { user, setUser } = useContext(UserContext);
 
   return (
     <Navbar className="navBarBox d-flex justify-content-between" expand="lg">
@@ -46,7 +31,10 @@ function NavBar() {
         Second Love Vintage
       </Navbar.Brand>
       <Nav className="mx-2">
-        <Link className="icon px-1" onClick={loadPage}>
+        <Link
+          className="icon px-1"
+          to={user ? "/account/user" : "/account/login"}
+        >
           <PersonIcon />
         </Link>
 

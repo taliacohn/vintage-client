@@ -3,43 +3,61 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 
-function Login() {
+import userAPI from "../API/user";
+import { UserContext } from "./UserContext";
+
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loginStatus, setLoginStatus] = useState(false);
-  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
 
-  axios.defaults.withCredentials = true;
+  const navigate = useNavigate();
+  const api = new userAPI();
 
   function login() {
-    preloadLogin().then((response) => {
-      if (response.data.message) {
-        setLoginStatus(response.data.message);
-      } else {
-        navigate("/account/user");
-        setLoginStatus(`${response.data[0].email} is logged in`);
-      } // only see the message with .data not whole object
+    console.log("logging on...");
+    api.login(email, password).then((result) => {
+      console.log(result);
+      alert("Welcome" + email)
+        .then((result) => {
+          navigate("/account/user");
+        })
+        .then((result) => {
+          setUser({ result });
+        })
+        .catch((err) => {
+          alert("User not found");
+        });
     });
   }
 
-  const preloadLogin = (e) => {
-    console.log("logging in..");
-    return axios.post("http://localhost:3001/login", {
-      email: email,
-      password: password,
-    });
-  };
+  // preloadLogin().then((response) => {
+  //   if (response.data.message) {
+  //     setLoginStatus(response.data.message);
+  //   } else {
+  //     navigate("/account/user");
+  //     setLoginStatus(`${response.data[0].email} is logged in`);
+  //   } // only see the message with .data not whole object
+  // });
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/login").then((response) => {
-      if (response.data.loggedIn == true) {
-        setLoginStatus(`${response.data[0].email} is logged in`);
-      }
-    });
-  }, []);
+  // const preloadLogin = (e) => {
+  //   console.log("logging in..");
+  //   return axios.post("http://localhost:3001/login", {
+  //     email: email,
+  //     password: password,
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   axios.get("http://localhost:3001/login").then((response) => {
+  //     if (response.data.loggedIn == true) {
+  //       setLoginStatus(`${response.data[0].email} is logged in`);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <Row>
@@ -77,10 +95,9 @@ function Login() {
             type="button"
             onClick={login}
           >
-            Submit
+            Login
           </button>
         </Form>
-        <h4>{loginStatus}</h4>
         <div className="d-flex mt-4 justify-content-between">
           <Col>
             <Link className="loginQuestion" to="/account/signup">
@@ -97,5 +114,3 @@ function Login() {
     </Row>
   );
 }
-
-export default Login;
