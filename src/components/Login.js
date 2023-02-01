@@ -1,11 +1,11 @@
-import axios from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useContext } from "react";
+import { useState, useContext } from "react";
 
 import userAPI from "../API/user";
+import popUp from "../alerts/popup";
 import { UserContext } from "./UserContext";
 
 export default function Login() {
@@ -19,45 +19,25 @@ export default function Login() {
 
   function login() {
     console.log("logging on...");
-    api.login(email, password).then((result) => {
-      console.log(result);
-      alert("Welcome" + email)
-        .then((result) => {
-          navigate("/account/user");
-        })
-        .then((result) => {
-          setUser({ result });
-        })
-        .catch((err) => {
-          alert("User not found");
+    api
+      .login(email, password)
+      .then((result) => {
+        popUp("success", "Login Successful", "Welcome " + email).then((res) => {
+          if (res.isConfirmed) {
+            console.log("confirmed login");
+            const currUser = result.data.user;
+            setUser({ currUser });
+            console.log(user);
+            navigate("/account/user");
+          }
         });
-    });
+      })
+      .catch((error) => {
+        console.log(error);
+        console.log("error is: " + error.response.data.message);
+        popUp("error", "Login Unsuccessful", error.response.data.message);
+      });
   }
-
-  // preloadLogin().then((response) => {
-  //   if (response.data.message) {
-  //     setLoginStatus(response.data.message);
-  //   } else {
-  //     navigate("/account/user");
-  //     setLoginStatus(`${response.data[0].email} is logged in`);
-  //   } // only see the message with .data not whole object
-  // });
-
-  // const preloadLogin = (e) => {
-  //   console.log("logging in..");
-  //   return axios.post("http://localhost:3001/login", {
-  //     email: email,
-  //     password: password,
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   axios.get("http://localhost:3001/login").then((response) => {
-  //     if (response.data.loggedIn == true) {
-  //       setLoginStatus(`${response.data[0].email} is logged in`);
-  //     }
-  //   });
-  // }, []);
 
   return (
     <Row>
