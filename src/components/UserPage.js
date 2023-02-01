@@ -7,19 +7,23 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "./UserContext.js";
 
 function UserPage() {
-  const noProfPic = process.env.NOPIC;
+  const noProfPic =
+    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
   const { user } = useContext(UserContext);
 
   const navigate = useNavigate();
+  const currUser = user.currUser;
 
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [image, setImage] = useState("");
-  const [streetNumber, setStreetNumber] = useState("");
-  const [streetName, setStreetName] = useState("");
-  const [city, setCity] = useState("");
-  const [country, setCountry] = useState("");
-  const [postalCode, setPostalCode] = useState("");
+  const [firstName, setFirstName] = useState(currUser.firstName);
+  const [lastName, setLastName] = useState(currUser.lastName);
+  const [image, setImage] = useState(
+    currUser.mainImg ? currUser.mainImg : noProfPic
+  );
+  const [streetNumber, setStreetNumber] = useState(currUser.streetNumber);
+  const [streetName, setStreetName] = useState(currUser.streetName);
+  const [city, setCity] = useState(currUser.city);
+  const [country, setCountry] = useState(currUser.country);
+  const [postalCode, setPostalCode] = useState(currUser.postalCode);
 
   // function getUserInfo() {
   //   console.log("getting info..");
@@ -57,17 +61,19 @@ function UserPage() {
     navigate("/");
   };
 
-  //getUserInfo();
+  function log() {
+    console.log(user);
+    console.log(image);
+    console.log(noProfPic);
+  }
+
+  log();
 
   return (
     <Row>
       <Col>
         <Card className="cardBox mt-5 mb-5 pb-3" style={{ width: "20rem" }}>
-          <Card.Img
-            variant="top"
-            style={{ height: "20rem" }}
-            src={image == "" || image == "undefined" ? noProfPic : image}
-          />
+          <Card.Img variant="top" style={{ height: "20rem" }} src={image} />
           <Card.Body>
             <Card.Title className="mb-3">My Account</Card.Title>
             <Card.Subtitle className="mb-3 text-muted">
