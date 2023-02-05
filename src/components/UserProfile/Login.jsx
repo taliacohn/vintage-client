@@ -4,9 +4,9 @@ import Form from "react-bootstrap/Form";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from "react";
 
-import userAPI from "../API/user";
-import popUp from "../alerts/popup";
-import { UserContext } from "./UserContext";
+import userAPI from "../../API/user";
+import popUp from "../../alerts/popup";
+import { UserContext } from "../UserContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");

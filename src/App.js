@@ -8,10 +8,10 @@ import "./App.css";
 // Components
 import Home from "./components/Home";
 import About from "./components/About";
-import Login from "./components/Login";
+import Login from "./components/UserProfile/Login";
 import SignUp from "./components/SignUp";
-import UserPage from "./components/UserPage";
-import EditDetails from "./components/EditDetails";
+import UserPage from "./components/UserProfile/UserPage";
+import EditDetails from "./components/UserProfile/EditPage";
 import Clothing from "./components/Clothing";
 import Shoes from "./components/Shoes";
 import Accessories from "./components/Accessories";

@@ -27,6 +27,41 @@ class userAPI {
     console.log(result);
     return result.data;
   }
+
+  logout() {
+    console.log("logging out..");
+    return axios.post(this.url + "/users/logout");
+  }
+
+  updateUser(
+    userId,
+    firstName,
+    lastName,
+    mainImg,
+    streetNumber,
+    streetName,
+    city,
+    country,
+    postalCode
+  ) {
+    return axios
+      .post(`${this.url}/users/${userId}`, {
+        firstName,
+        lastName,
+        mainImg,
+        streetNumber,
+        streetName,
+        city,
+        country,
+        postalCode,
+      })
+      .then((response) => {
+        return response;
+      })
+      .catch((error) => {
+        throw error;
+      });
+  }
 }
 
 export default userAPI;

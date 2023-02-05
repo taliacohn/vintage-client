@@ -4,9 +4,9 @@ export default function popUp(
   icon = "",
   title = "",
   text = "",
-  showConfirmButton = true,
-  showCancelButton = false,
   showDenyButton = false,
+  showCancelButton = false,
+  showConfirmButton = true,
   denyButtonText = ""
 ) {
   return Swal.fire({

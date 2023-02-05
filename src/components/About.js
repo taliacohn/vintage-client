@@ -1,7 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Pic from "./images/Talia-Cohn-Headshot.JPG";
+import Pic from "./images/Talia-Cohn-Headshot.jpg";
 
 function About() {
   const noProfPic =
