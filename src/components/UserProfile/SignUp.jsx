@@ -1,39 +1,73 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
-import axios from "axios";
+import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-function SignUp() {
+import userAPI from "../../API/user";
+
+export default function SignUp() {
+  const api = new userAPI();
+  const navigate = useNavigate();
   const [firstNameReg, setFirstNameReg] = useState("");
   const [lastNameReg, setLastNameReg] = useState("");
   const [emailReg, setEmailReg] = useState("");
   const [passwordReg, setPasswordReg] = useState("");
+  const [error, setError] = useState({});
 
-  const navigate = useNavigate();
-
-  const register = (e) => {
-    console.log("registering..");
-    // axios.get("http://localhost:3001/user").then((response) => {
-    //   console.log(response.data);
-    // });
-    axios
-      .post("http://localhost:3001/signup", {
-        firstName: firstNameReg,
-        lastName: lastNameReg,
-        email: emailReg,
-        password: passwordReg,
-      })
-      .then((response, err) => {
-        if (err) {
-          console.log(err);
-        } else {
-          navigate("/account/login");
-          console.log(response);
-        }
+  function register() {
+    if (
+      Object.keys(error).length ||
+      firstNameReg === "" ||
+      lastNameReg === "" ||
+      emailReg === "" ||
+      passwordReg === ""
+    ) {
+      Swal.fire({
+        title: "Complete All Sections",
+        icon: "warning",
       });
-  };
+    } else {
+      api
+        .signup(firstNameReg, lastNameReg, emailReg, passwordReg)
+        .then((response) => {
+          Swal.fire({
+            title: "Sign up completed",
+            text: "Welcome " + emailReg,
+            icon: "success",
+          }).then((result) => {
+            if (result.isConfirmed) {
+              navigate("/account/login");
+            }
+          });
+        })
+        .catch((err) => {
+          Swal.fire({
+            title: "Try Again!",
+            text: "Something went wrong",
+            icon: "warning",
+            timer: 2000,
+          });
+        });
+    }
+  }
+
+  //   console.log("registering..");
+  //   // axios.get("http://localhost:3001/user").then((response) => {
+  //   //   console.log(response.data);
+  //   // });
+  //   api
+  //     .register(firstNameReg, lastNameReg, emailReg, passwordReg)
+  //     .then((response, err) => {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         navigate("/account/login");
+  //         console.log(response);
+  //       }
+  //     });
+  // }
 
   return (
     <Row>
@@ -102,5 +136,3 @@ function SignUp() {
     </Row>
   );
 }
-
-export default SignUp;

@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { UserContext } from "./components/UserContext";
 
 // Style
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -9,7 +10,7 @@ import "./App.css";
 import Home from "./components/Home";
 import About from "./components/About";
 import Login from "./components/UserProfile/Login";
-import SignUp from "./components/SignUp";
+import SignUp from "./components/UserProfile/SignUp";
 import UserPage from "./components/UserProfile/UserPage";
 import EditDetails from "./components/UserProfile/EditPage";
 import Clothing from "./components/Clothing";
@@ -18,7 +19,6 @@ import Accessories from "./components/Accessories";
 import HomeDecor from "./components/HomeDecor";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import { UserContext } from "./components/UserContext";
 
 function App() {
   const [user, setUser] = useState(null);

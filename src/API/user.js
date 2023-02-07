@@ -7,7 +7,7 @@ class userAPI {
   }
 
   signup(firstName, lastName, email, password) {
-    return axios.post(this.url + "/account/signup", {
+    return axios.post(this.url + "/users/signup", {
       firstName: firstName,
       lastName: lastName,
       email: email,
