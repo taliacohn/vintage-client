@@ -19,6 +19,7 @@ import Accessories from "./components/Accessories";
 import HomeDecor from "./components/HomeDecor";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
+import Shop from "./components/Shop/Shop";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -38,10 +39,11 @@ function App() {
             <Route path="/account/signup" element={<SignUp />} />
             <Route path="/account/user" element={<UserPage />} />
             <Route path="/account/edit" element={<EditDetails />} />
-            <Route path="/products/clothes" element={<Clothing />} />
+            <Route path="/shop/:category" element={<Shop />} />
+            {/* <Route path="/products/clothes" element={<Clothing />} />
             <Route path="/products/shoes" element={<Shoes />} />
             <Route path="/products/accessories" element={<Accessories />} />
-            <Route path="/products/homedecor" element={<HomeDecor />} />
+            <Route path="/products/homedecor" element={<HomeDecor />} /> */}
           </Routes>
 
           <Footer />

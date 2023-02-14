@@ -1,10 +1,10 @@
 import ProductItem from "./ProductItem";
-import ShoppingNav from "./ShoppingNav";
+// import ShoppingNav from "./ShoppingNav";
 
 function Clothing() {
   return (
     <>
-      <ShoppingNav />
+      {/* <ShoppingNav /> */}
 
       <div className="mt-3 mb-5">
         <div className="d-flex justify-content-center">
