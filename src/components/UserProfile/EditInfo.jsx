@@ -4,11 +4,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userAPI from "../../API/user";
 
-export default function EditInfo({ user, setUser }) {
+export default function EditInfo({ user }) {
   const [firstName, setFirstName] = useState(user.firstName || "");
   const [lastName, setLastName] = useState(user.lastName || "");
   const [image, setMainImg] = useState(user.mainImg || "");
-  const [streetNumber, setStreetNumber] = useState(user.streetNumber || "");
+  const [streetNumber, setStreetNumber] = useState(user.streetNumber || null);
   const [streetName, setStreetName] = useState(user.streetName || "");
   const [city, setCity] = useState(user.setCity || "");
   const [country, setCountry] = useState(user.setCountry || "");
@@ -71,6 +71,7 @@ export default function EditInfo({ user, setUser }) {
     }
   };
 
+  console.log(streetNumber);
   return (
     <Form className="loginFormPage mt-5 mb-3 w-75">
       <Form.Group className="mb-3" controlId="firstName">

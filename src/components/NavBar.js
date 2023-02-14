@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -10,21 +10,33 @@ import { UserContext } from "./UserContext";
 
 function NavBar() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
+
+  const handleClick = (category) => {
+    navigate(`/shop/${category}`);
+  };
 
   return (
     <Navbar className="navBarBox d-flex justify-content-between" expand="lg">
       <NavDropdown
-        className="shopDrop mx-2"
+        className="shopDrop mx-2 px-2"
         title="Shop"
         id="basic-nav-dropdown"
       >
-        <NavDropdown.Item href="/products/clothes">Clothes</NavDropdown.Item>
-        <NavDropdown.Item href="/products/shoes">Shoes</NavDropdown.Item>
-        <NavDropdown.Item href="/products/accessories">
+        <NavDropdown.Item onClick={() => handleClick("clothes")}>
+          Clothes
+        </NavDropdown.Item>
+        <NavDropdown.Item onClick={() => handleClick("shoes")}>
+          Shoes
+        </NavDropdown.Item>
+        <NavDropdown.Item onClick={() => handleClick("accessories")}>
           Accessories
         </NavDropdown.Item>
-        <NavDropdown.Item href="/products/homedecor">
+        <NavDropdown.Item onClick={() => handleClick("home_decor")}>
           Home Decor
+        </NavDropdown.Item>
+        <NavDropdown.Item onClick={() => handleClick("all")}>
+          All
         </NavDropdown.Item>
       </NavDropdown>
       <Navbar.Brand className="brandTitle mx-0" href="/">
