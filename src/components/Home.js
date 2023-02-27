@@ -6,12 +6,12 @@ import { Link } from "react-router-dom";
 
 function Home() {
   return (
-    <Container fluid>
-      <Row className="even-box">
+    <Container fluid className="mb-3">
+      <Row className="even-box home">
         <Col>
           <Stack className="titleGroup" gap={3}>
             <div className="title">Clothes</div>
-            <Link to="/products/clothes">
+            <Link to="/shop/clothes">
               <div className="shopNow">Shop Now</div>
             </Link>
           </Stack>
@@ -19,23 +19,23 @@ function Home() {
         <Col className="clothes" xs={9}></Col>
       </Row>
 
-      <Row className="odd-box">
+      <Row className="odd-box home">
         <Col className="shoes" xs={9}></Col>
         <Col>
           <Stack className="titleGroup" gap={3}>
             <div className="title">Shoes</div>
-            <Link to="/products/shoes">
+            <Link to="/shop/shoes">
               <div className="shopNow">Shop Now</div>
             </Link>
           </Stack>
         </Col>
       </Row>
 
-      <Row className="even-box ">
+      <Row className="even-box home">
         <Col>
           <Stack className="titleGroup" gap={3}>
             <div className="title">Accessories</div>
-            <Link to="/products/accessories">
+            <Link to="/shop/accessories">
               <div className="shopNow">Shop Now</div>
             </Link>
           </Stack>
@@ -43,12 +43,12 @@ function Home() {
         <Col className="accessories" xs={9}></Col>
       </Row>
 
-      <Row className="odd-box">
+      <Row className="odd-box home">
         <Col className="home-decor" xs={9}></Col>
         <Col>
           <Stack className="titleGroup" gap={3}>
             <div className="title">Home Decor</div>
-            <Link to="/products/homedecor">
+            <Link to="/shop/homedecor">
               <div className="shopNow">Shop Now</div>
             </Link>
           </Stack>

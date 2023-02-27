@@ -11,6 +11,12 @@ class productsAPI {
       .get(this.url + `/products/${category}`)
       .then((result) => result.data);
   }
+
+  getOneProduct(name) {
+    return axios
+      .get(this.url + `/products/${name}`)
+      .then((result) => result.data);
+  }
 }
 
 export default productsAPI;

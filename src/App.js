@@ -13,18 +13,19 @@ import Login from "./components/UserProfile/Login";
 import SignUp from "./components/UserProfile/SignUp";
 import UserPage from "./components/UserProfile/UserPage";
 import EditDetails from "./components/UserProfile/EditPage";
-import Clothing from "./components/Clothing";
-import Shoes from "./components/Shoes";
-import Accessories from "./components/Accessories";
-import HomeDecor from "./components/HomeDecor";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import Shop from "./components/Shop/Shop";
+import Cart from "./components/ShoppingCart/Cart";
+import Wishlist from "./components/Wishlist/Wishlist";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [wishlist, setWishlist] = useState([]);
 
   const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+
+  console.log(wishlist);
 
   return (
     <div className="App">
@@ -37,13 +38,25 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/account/login" element={<Login />} />
             <Route path="/account/signup" element={<SignUp />} />
-            <Route path="/account/user" element={<UserPage />} />
+            <Route
+              path="/account/user"
+              element={<UserPage setWishlist={setWishlist} />}
+            />
+            <Route
+              path="/account/wishlist"
+              element={
+                <Wishlist wishlist={wishlist} setWishlist={setWishlist} />
+              }
+            />
             <Route path="/account/edit" element={<EditDetails />} />
-            <Route path="/shop/:category" element={<Shop />} />
-            {/* <Route path="/products/clothes" element={<Clothing />} />
-            <Route path="/products/shoes" element={<Shoes />} />
-            <Route path="/products/accessories" element={<Accessories />} />
-            <Route path="/products/homedecor" element={<HomeDecor />} /> */}
+            <Route
+              path="/shop/:category"
+              element={<Shop wishlist={wishlist} setWishlist={setWishlist} />}
+            />
+            <Route
+              path="/account/cart"
+              element={<Cart wishlist={wishlist} setWishlist={setWishlist} />}
+            />
           </Routes>
 
           <Footer />

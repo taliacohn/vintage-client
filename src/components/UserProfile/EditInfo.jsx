@@ -71,7 +71,6 @@ export default function EditInfo({ user }) {
     }
   };
 
-  console.log(streetNumber);
   return (
     <Form className="loginFormPage mt-5 mb-3 w-75">
       <Form.Group className="mb-3" controlId="firstName">
