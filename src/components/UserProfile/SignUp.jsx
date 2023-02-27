@@ -53,22 +53,6 @@ export default function SignUp() {
     }
   }
 
-  //   console.log("registering..");
-  //   // axios.get("http://localhost:3001/user").then((response) => {
-  //   //   console.log(response.data);
-  //   // });
-  //   api
-  //     .register(firstNameReg, lastNameReg, emailReg, passwordReg)
-  //     .then((response, err) => {
-  //       if (err) {
-  //         console.log(err);
-  //       } else {
-  //         navigate("/account/login");
-  //         console.log(response);
-  //       }
-  //     });
-  // }
-
   return (
     <Row>
       <Col className="titleMessage d-flex justify-content-center">

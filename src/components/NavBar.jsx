@@ -17,7 +17,11 @@ function NavBar() {
   };
 
   return (
-    <Navbar className="navBarBox d-flex justify-content-between" expand="lg">
+    <Navbar
+      className="navBarBox d-flex justify-content-between"
+      expand="lg"
+      fixed="top"
+    >
       <NavDropdown
         className="shopDrop mx-2 px-2"
         title="Shop"
@@ -50,11 +54,17 @@ function NavBar() {
           <PersonIcon />
         </Link>
 
-        <Link className="icon px-1" to="/account/wishlist">
+        <Link
+          className="icon px-1"
+          to={user ? "/account/wishlist" : "/account/login"}
+        >
           <FavoriteIcon />
         </Link>
 
-        <Link className="icon px-1" to="/account/cart">
+        <Link
+          className="icon px-1"
+          to={user ? "/account/cart" : "/account/login"}
+        >
           <ShoppingCartIcon />
         </Link>
       </Nav>

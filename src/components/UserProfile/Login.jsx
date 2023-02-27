@@ -18,7 +18,6 @@ export default function Login() {
   const api = new userAPI();
 
   function login() {
-    console.log("logging on...");
     api
       .login(email, password)
       .then((result) => {
@@ -28,7 +27,10 @@ export default function Login() {
             const currUser = result.data.user;
             setUser({ currUser });
             console.log(user);
-            navigate("/account/user");
+            const redirectPath =
+              sessionStorage.getItem("redirectPath") || "/account/user";
+            sessionStorage.removeItem("redirectPath");
+            navigate(redirectPath);
           }
         });
       })
