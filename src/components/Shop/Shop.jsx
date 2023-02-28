@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Product from "../Product/Product";
 import productAPI from "../../API/products";
-import cartAPI from "../../API/cart";
 import wishlistAPI from "../../API/wishlist";
+import cartAPI from "../../API/cart";
 import ShoppingNav from "./ShoppingNav";
 import { useContext } from "react";
 import { UserContext } from "../UserContext.js";
@@ -13,8 +13,8 @@ export default function Shop(props) {
   const { category } = useParams();
   const { user } = useContext(UserContext);
   const productApi = new productAPI();
-  const cartApi = new cartAPI();
   const wishlistApi = new wishlistAPI();
+  const cartApi = new cartAPI();
 
   useEffect(() => {
     productApi.getProducts(category).then((res) => setProducts(res));
