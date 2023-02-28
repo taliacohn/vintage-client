@@ -17,6 +17,14 @@ class productsAPI {
       .get(this.url + `/products/product/${id}`)
       .then((result) => result.data);
   }
+
+  getSearchProducts(searchQuery) {
+    return axios
+      .post(this.url + `/products/search`, {
+        searchQuery,
+      })
+      .then((result) => result.data);
+  }
 }
 
 export default productsAPI;

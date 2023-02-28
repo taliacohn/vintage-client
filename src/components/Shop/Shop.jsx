@@ -10,19 +10,28 @@ import { UserContext } from "../UserContext.js";
 
 export default function Shop(props) {
   const [products, setProducts] = useState([]);
+  const [searchResults, setSearchResults] = useState([]);
   const { category } = useParams();
   const { user } = useContext(UserContext);
   const productApi = new productAPI();
   const wishlistApi = new wishlistAPI();
   const cartApi = new cartAPI();
 
+  const handleSearchResults = (results) => {
+    setSearchResults(results);
+  };
+
   useEffect(() => {
-    productApi.getProducts(category).then((res) => setProducts(res));
-  }, [category]);
+    if (searchResults.length > 0) {
+      setProducts(searchResults);
+    } else {
+      productApi.getProducts(category).then((res) => setProducts(res));
+    }
+  }, [category, searchResults]);
 
   return (
     <div className="container mb-5">
-      <ShoppingNav />
+      <ShoppingNav onSearchResults={handleSearchResults} />
       <div className="row mt-2">
         {products.map((product) => (
           <div className="col-sm-4" key={product.id}>

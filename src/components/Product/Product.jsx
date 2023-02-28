@@ -20,34 +20,7 @@ export default function Product({
 }) {
   const navigate = useNavigate();
 
-  // const handleAddToCart = async () => {
-  //   if (!user) {
-  //     sessionStorage.setItem("redirectPath", window.location.pathname);
-  //     navigate("/account/login");
-  //   } else {
-  //     const result = await cartApi.addToCart(id, user.currUser.id);
-  //     if (result.status === 200) {
-  //       popUp("success", "Added to Cart");
-  //     } else {
-  //       popUp("error", "Could Not Add to Cart");
-  //     }
-  //   }
-  // };
-
   const isInWishlist = wishlist.some((item) => item.productID === id);
-
-  // const handleAddToWishlist = async () => {
-  //   if (isInWishlist) {
-  //     wishlistApi.deleteFromWishlist(id, user.currUser.id).then(() => {
-  //       console.log(wishlist);
-  //       setWishlist(wishlist.filter((item) => item.productID !== id));
-  //     });
-  //   } else {
-  //     wishlistApi.addToWishlist(id, user.currUser.id).then(() => {
-  //       setWishlist([...wishlist, { productID: id, userID: user.id }]);
-  //     });
-  //   }
-  // };
 
   return (
     <Card style={{ width: "17rem", height: "35rem", margin: "2%" }}>
