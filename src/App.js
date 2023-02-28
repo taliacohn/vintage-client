@@ -55,14 +55,14 @@ function App() {
               element={<Shop wishlist={wishlist} setWishlist={setWishlist} />}
             />
             <Route
+              path="/account/cart"
+              element={<Cart wishlist={wishlist} setWishlist={setWishlist} />}
+            />
+            <Route
               path="/products/:id/:name"
               element={
                 <ProductDetails wishlist={wishlist} setWishlist={setWishlist} />
               }
-            />
-            <Route
-              path="/account/cart"
-              element={<Cart wishlist={wishlist} setWishlist={setWishlist} />}
             />
           </Routes>
 
