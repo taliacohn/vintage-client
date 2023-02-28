@@ -22,7 +22,7 @@ export default function Cart(props) {
   const clearCart = (orderId) => {
     console.log(orderId);
     cartItems.map((product) => {
-      api.setProductsInOrder;
+      api.setProductsInOrder();
     });
   };
 

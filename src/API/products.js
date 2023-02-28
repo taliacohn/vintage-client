@@ -12,9 +12,9 @@ class productsAPI {
       .then((result) => result.data);
   }
 
-  getOneProduct(name) {
+  getOneProduct(id) {
     return axios
-      .get(this.url + `/products/${name}`)
+      .get(this.url + `/products/product/${id}`)
       .then((result) => result.data);
   }
 }

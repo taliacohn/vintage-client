@@ -1,92 +1,121 @@
-import { useEffect, useState } from "react";
-import API from "../../API/products";
+import { useEffect, useState, useContext } from "react";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { Card, Col, Container, Row, Button } from "react-bootstrap";
 
-export default function ProductDetails({ id, location, imgURL }) {
-  const { isInWishlist, handleAddToWishlist } = location.state || {};
+import API from "../../API/products";
+import ProductDetailsImages from "./ProductDetailsImages";
+import { handleAddToCart, handleAddToWishlist } from "../../API/index";
+import { UserContext } from "../UserContext.js";
+
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+
+export default function ProductDetails(props) {
   const { id } = useParams();
+  console.log(id);
+  const { user } = useContext(UserContext);
   const [product, setProduct] = useState(null);
-  const [selectedImage, setSelectedImage] = useState(imgURL);
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageUrl, setSelectedImageUrl] = useState(null);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const api = new API();
 
+  const isInWishlist = props.wishlist.some((item) => item.productID === id);
+
   useEffect(() => {
-    api.fetchProduct(id).then((res) => setProduct(res));
+    api.getOneProduct(id).then((res) => setProduct(res));
+    if (product) {
+      setSelectedImage(product.imgURLs[0]);
+    }
   }, [id]);
+
+  console.log("in product details");
 
   return (
     <div>
       {!product ? (
-        <div>Loading...</div>
+        <h1 className="d-flex justify-content-center mt-5 ">Loading...</h1>
       ) : (
-        <div className="container my-5">
-          <div className="row">
-            <div className="col-md-6">
-              <img
-                src={selectedImage}
-                alt={product.name}
-                className="img-fluid"
-              />
-            </div>
-            <div className="col-md-6">
-              <h1>{product.name}</h1>
-              <p>{product.description}</p>
-              <h2>₪{product.price}</h2>
-              <button className="btn btn-primary mr-2"></button>
-            </div>
-          </div>
-        </div>
+        <Container className="mt-5">
+          {console.log(product)}
+          {console.log(location.state)}
+          <Row className="pt-5 pb-5">
+            <ProductDetailsImages
+              selectedImage={selectedImage || product.imgURLs[0]}
+              images={product.imgURLs}
+              setSelectedImage={setSelectedImage}
+              setSelectedImageUrl={setSelectedImageUrl}
+              selectedImageUrl={selectedImageUrl || product.imgURLs[0]}
+            />
+            <Col xs={12} md={6}>
+              <Card className="border-0" style={{ width: "500px" }}>
+                <Card.Body>
+                  <Card.Title
+                    className="pb-3"
+                    style={{ width: "400px", fontSize: "2rem" }}
+                  >
+                    {product.name}
+                  </Card.Title>
+                  <Card.Text
+                    className="px-3 pb-4"
+                    style={{ fontSize: "1.5rem" }}
+                  >
+                    ₪{product.price}
+                  </Card.Text>
+                  <div
+                    className="d-flex justify-content-between mx-5"
+                    style={{ width: "300px" }}
+                  >
+                    <Button
+                      className="px-4"
+                      variant="outline-secondary"
+                      onClick={() =>
+                        handleAddToWishlist(
+                          isInWishlist,
+                          user,
+                          id,
+                          props.setWishlist,
+                          props.wishlist,
+                          window.location.pathname,
+                          navigate
+                        )
+                      }
+                    >
+                      {isInWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+                    </Button>
+                    <Button
+                      variant="outline-secondary"
+                      className="icon px-4"
+                      onClick={() =>
+                        handleAddToCart(
+                          user,
+                          window.location.pathname,
+                          id,
+                          navigate
+                        )
+                      }
+                    >
+                      <AddShoppingCartIcon />
+                    </Button>
+                  </div>
+                  <Card.Title className="mt-5">Product Details</Card.Title>
+                  <Card.Text className="pt-2">
+                    {product.description
+                      .split(".")
+                      .filter(Boolean)
+                      .map((item) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>
+        </Container>
       )}
     </div>
   );
 }
-
-import React, { useState } from "react";
-
-const ProductDetailsPage = ({ product }) => {
-  const [selectedImage, setSelectedImage] = useState(product.imgURL);
-  const [product, setProduct] = useState({});
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      const response = await fetch(
-        `http://localhost:3000/api/products/${match.params.id}`
-      );
-      const product = await response.json();
-      setProduct(product);
-    };
-
-    fetchProduct();
-  }, [match.params.id]);
-
-  const [selectedImage, setSelectedImage] = useState(product.imgURL);
-
-  return (
-    <div className="container my-5">
-      <div className="row">
-        <div className="col-md-6">
-          <img src={selectedImage} alt={product.name} className="img-fluid" />
-        </div>
-        <div className="col-md-6">
-          <h1>{product.name}</h1>
-          <p>{product.description}</p>
-          <h2>${product.price}</h2>
-          <button className="btn btn-primary mr-2">Add to Wishlist</button>
-          <button className="btn btn-primary">Add to Cart</button>
-          <hr />
-          <div className="row">
-            {product.images.map((image) => (
-              <div className="col-3" key={image}>
-                <img
-                  src={image}
-                  alt={product.name}
-                  className="img-fluid"
-                  onClick={() => setSelectedImage(image)}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};

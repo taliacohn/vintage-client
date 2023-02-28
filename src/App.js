@@ -18,6 +18,7 @@ import Footer from "./components/Footer";
 import Shop from "./components/Shop/Shop";
 import Cart from "./components/ShoppingCart/Cart";
 import Wishlist from "./components/Wishlist/Wishlist";
+import ProductDetails from "./components/Product/ProductDetails";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -52,6 +53,12 @@ function App() {
             <Route
               path="/shop/:category"
               element={<Shop wishlist={wishlist} setWishlist={setWishlist} />}
+            />
+            <Route
+              path="/products/:id/:name"
+              element={
+                <ProductDetails wishlist={wishlist} setWishlist={setWishlist} />
+              }
             />
             <Route
               path="/account/cart"
