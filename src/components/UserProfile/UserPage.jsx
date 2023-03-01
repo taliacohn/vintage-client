@@ -1,23 +1,16 @@
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useContext } from "react";
-import API from "../../API/wishlist";
-import { UserContext } from "../UserContext.js";
+import { useContext, useEffect } from "react";
 import UserCard from "./UserCard";
-import { useEffect } from "react";
+import { UserContext } from "../Contexts";
 
-export default function UserPage({ setWishlist }) {
+export default function UserPage() {
   const noProfPic =
     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+
   const { user, setUser } = useContext(UserContext);
-  const api = new API();
-
   const currUser = user.currUser;
-
-  useEffect(() => {
-    api.getWishlist(currUser.id).then((res) => setWishlist(res));
-  }, [currUser.id, setWishlist]);
 
   return (
     <Row>

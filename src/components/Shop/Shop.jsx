@@ -2,20 +2,18 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Product from "../Product/Product";
 import productAPI from "../../API/products";
-import wishlistAPI from "../../API/wishlist";
-import cartAPI from "../../API/cart";
 import ShoppingNav from "./ShoppingNav";
 import { useContext } from "react";
-import { UserContext } from "../UserContext.js";
+import { WishlistContext, UserContext, CartContext } from "../Contexts";
 
 export default function Shop(props) {
   const [products, setProducts] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const { category } = useParams();
   const { user } = useContext(UserContext);
+  const { wishlist, setWishlist } = useContext(WishlistContext);
+  const { cart, setCart } = useContext(CartContext);
   const productApi = new productAPI();
-  const wishlistApi = new wishlistAPI();
-  const cartApi = new cartAPI();
 
   const handleSearchResults = (results) => {
     setSearchResults(results);
@@ -41,10 +39,10 @@ export default function Shop(props) {
               imgURL={product.imgURL}
               price={product.price}
               user={user}
-              cartApi={cartApi}
-              wishlistApi={wishlistApi}
-              setWishlist={props.setWishlist}
-              wishlist={props.wishlist}
+              setWishlist={setWishlist}
+              wishlist={wishlist}
+              cart={cart}
+              setCart={setCart}
             />
           </div>
         ))}

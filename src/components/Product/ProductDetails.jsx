@@ -5,7 +5,7 @@ import { Card, Col, Container, Row, Button } from "react-bootstrap";
 import API from "../../API/products";
 import ProductDetailsImages from "./ProductDetailsImages";
 import { handleAddToCart, handleAddToWishlist } from "../../API/index";
-import { UserContext } from "../UserContext.js";
+import { UserContext } from "../Contexts";
 
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";

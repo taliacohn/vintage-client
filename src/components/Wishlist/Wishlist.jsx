@@ -1,17 +1,20 @@
 import cartAPI from "../../API/cart";
 import wishlistAPI from "../../API/wishlist";
 import { useContext } from "react";
-import { UserContext } from "../UserContext.js";
+import { UserContext, WishlistContext } from "../Contexts.js";
 import { Container, Row, Col } from "react-bootstrap";
 import WishlistCards from "./WishlistCards";
 
-export default function Wishlist(props) {
+export default function Wishlist() {
   const cartApi = new cartAPI();
   const wishlistApi = new wishlistAPI();
 
   const { user } = useContext(UserContext);
+  const { wishlist, setWishlist } = useContext(WishlistContext);
   const currUser = user.currUser;
   console.log(currUser);
+
+  console.log(wishlist);
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
@@ -23,11 +26,11 @@ export default function Wishlist(props) {
                 {currUser.firstName}'s Wishlist
               </h1>
             </div>
-            {props.wishlist.length <= 0 ? (
+            {wishlist.length <= 0 ? (
               <div>No items in wishlist.</div>
             ) : (
               <div>
-                {props.wishlist.map((item) => (
+                {wishlist.map((item) => (
                   <div key={item.id}>
                     <WishlistCards
                       id={item.id}
@@ -37,8 +40,8 @@ export default function Wishlist(props) {
                       cartApi={cartApi}
                       wishlistApi={wishlistApi}
                       user={currUser}
-                      wishlist={props.wishlist}
-                      setWishlist={props.setWishlist}
+                      wishlist={wishlist}
+                      setWishlist={setWishlist}
                     />
                   </div>
                 ))}

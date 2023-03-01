@@ -10,9 +10,11 @@ export default function EditInfo({ user }) {
   const [image, setMainImg] = useState(user.mainImg || "");
   const [streetNumber, setStreetNumber] = useState(user.streetNumber || null);
   const [streetName, setStreetName] = useState(user.streetName || "");
-  const [city, setCity] = useState(user.setCity || "");
-  const [country, setCountry] = useState(user.setCountry || "");
-  const [postalCode, setPostalCode] = useState(user.setPostalCode || "");
+  const [city, setCity] = useState(user.city || "");
+  const [country, setCountry] = useState(user.country || "");
+  const [postalCode, setPostalCode] = useState(user.postalCode || "");
+
+  console.log(user);
 
   const navigate = useNavigate();
   const api = new userAPI();

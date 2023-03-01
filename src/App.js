@@ -1,20 +1,28 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { UserContext } from "./components/UserContext";
+import {
+  UserContext,
+  WishlistContext,
+  CartContext,
+} from "./components/Contexts";
 
 // Style
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
+// APIs
+import wishlistAPI from "./API/wishlist";
+import cartAPI from "./API/cart";
+
 // Components
-import Home from "./components/Home";
-import About from "./components/About";
+import Home from "./components/Other/Home";
+import About from "./components/Other/About";
 import Login from "./components/UserProfile/Login";
 import SignUp from "./components/UserProfile/SignUp";
 import UserPage from "./components/UserProfile/UserPage";
 import EditDetails from "./components/UserProfile/EditPage";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
+import NavBar from "./components/Other/NavBar";
+import Footer from "./components/Other/Footer";
 import Shop from "./components/Shop/Shop";
 import Cart from "./components/ShoppingCart/Cart";
 import Wishlist from "./components/Wishlist/Wishlist";
@@ -22,53 +30,79 @@ import ProductDetails from "./components/Product/ProductDetails";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [cart, setCart] = useState([]);
   const [wishlist, setWishlist] = useState([]);
 
-  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const wishlistApi = new wishlistAPI();
+  const cartApi = new cartAPI();
 
-  console.log(wishlist);
+  const userValue = useMemo(() => ({ user, setUser }), [user, setUser]);
+  const cartValue = useMemo(() => ({ cart, setCart }), [cart, setCart]);
+  const wishlistValue = useMemo(
+    () => ({ wishlist, setWishlist }),
+    [wishlist, setWishlist]
+  );
+
+  useEffect(() => {
+    if (user) {
+      console.log(user);
+      wishlistApi.getWishlist(user.currUser.id).then((res) => setWishlist(res));
+      cartApi.getCartItems(user.currUser.id).then((res) => setCart(res));
+    }
+  }, [user]);
 
   return (
     <div className="App">
-      <UserContext.Provider value={userValue}>
-        <Router>
-          <NavBar />
+      <WishlistContext.Provider value={wishlistValue}>
+        <CartContext.Provider value={cartValue}>
+          <UserContext.Provider value={userValue}>
+            <Router>
+              <NavBar />
 
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/account/login" element={<Login />} />
-            <Route path="/account/signup" element={<SignUp />} />
-            <Route
-              path="/account/user"
-              element={<UserPage setWishlist={setWishlist} />}
-            />
-            <Route
-              path="/account/wishlist"
-              element={
-                <Wishlist wishlist={wishlist} setWishlist={setWishlist} />
-              }
-            />
-            <Route path="/account/edit" element={<EditDetails />} />
-            <Route
-              path="/shop/:category"
-              element={<Shop wishlist={wishlist} setWishlist={setWishlist} />}
-            />
-            <Route
-              path="/account/cart"
-              element={<Cart wishlist={wishlist} setWishlist={setWishlist} />}
-            />
-            <Route
-              path="/products/:id/:name"
-              element={
-                <ProductDetails wishlist={wishlist} setWishlist={setWishlist} />
-              }
-            />
-          </Routes>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/account/login" element={<Login />} />
+                <Route path="/account/signup" element={<SignUp />} />
+                <Route
+                  path="/account/user"
+                  element={<UserPage setWishlist={setWishlist} />}
+                />
+                <Route
+                  path="/account/wishlist"
+                  element={
+                    <Wishlist wishlist={wishlist} setWishlist={setWishlist} />
+                  }
+                />
+                <Route path="/account/edit" element={<EditDetails />} />
+                <Route
+                  path="/shop/:category"
+                  element={
+                    <Shop wishlist={wishlist} setWishlist={setWishlist} />
+                  }
+                />
+                <Route
+                  path="/account/cart"
+                  element={
+                    <Cart wishlist={wishlist} setWishlist={setWishlist} />
+                  }
+                />
+                <Route
+                  path="/products/:id/:name"
+                  element={
+                    <ProductDetails
+                      wishlist={wishlist}
+                      setWishlist={setWishlist}
+                    />
+                  }
+                />
+              </Routes>
 
-          <Footer />
-        </Router>
-      </UserContext.Provider>
+              <Footer />
+            </Router>
+          </UserContext.Provider>
+        </CartContext.Provider>
+      </WishlistContext.Provider>
     </div>
   );
 }

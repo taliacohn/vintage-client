@@ -3,12 +3,16 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import API from "../../API/wishlist";
+import { useNavigate } from "react-router-dom";
+import { handleAddToCart, handleAddToWishlist } from "../../API/index";
 
 export default function CartCards(props) {
   const api = props.api;
   const user = props.user;
-  const wishlistAPI = new API();
-  console.log(user);
+
+  const navigate = useNavigate();
+
+  const isInWishlist = props.wishlist.some((item) => item.id === props.id);
 
   const handleDeleteFromCart = async (id) => {
     api
@@ -22,30 +26,6 @@ export default function CartCards(props) {
       .catch((error) => {
         console.error("Error deleting cart item", error);
       });
-  };
-
-  const isInWishlist = props.wishlist.some((item) => item.id === props.id);
-
-  const handleAddToWishlist = async () => {
-    if (isInWishlist) {
-      wishlistAPI.deleteFromWishlist(props.id, user.id).then(() => {
-        props.setWishlist(
-          props.wishlist.filter((item) => item.id !== props.id)
-        );
-      });
-    } else {
-      wishlistAPI.addToWishlist(props.id, user.id).then(() => {
-        props.setWishlist([
-          ...props.wishlist,
-          {
-            id: props.id,
-            imgURL: props.imgURL,
-            name: props.name,
-            price: props.price,
-          },
-        ]);
-      });
-    }
   };
 
   return (
@@ -78,7 +58,20 @@ export default function CartCards(props) {
               <Button
                 variant="outline-none"
                 className="icon px-1 py-4 text-secondary"
-                onClick={handleAddToWishlist}
+                onClick={() =>
+                  handleAddToWishlist(
+                    isInWishlist,
+                    props.user,
+                    props.id,
+                    props.imgURL,
+                    props.price,
+                    props.name,
+                    props.setWishlist,
+                    props.wishlist,
+                    window.location.pathname,
+                    navigate
+                  )
+                }
               >
                 {isInWishlist ? <FavoriteIcon /> : <FavoriteBorderIcon />}
               </Button>

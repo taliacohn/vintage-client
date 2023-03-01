@@ -1,7 +1,7 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useContext } from "react";
-import { UserContext } from "../UserContext.js";
+import { UserContext } from "../Contexts";
 import EditInfo from "./EditInfo.jsx";
 
 export default function EditPage() {

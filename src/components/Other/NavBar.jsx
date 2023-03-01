@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import Badge from "react-bootstrap/Badge";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
@@ -6,10 +7,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useContext } from "react";
-import { UserContext } from "./UserContext";
+import { CartContext, UserContext } from "../Contexts";
 
 function NavBar() {
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
+  const { cart } = useContext(CartContext);
+
+  console.log(cart);
+
   const navigate = useNavigate();
 
   const handleClick = (category) => {
@@ -66,6 +71,15 @@ function NavBar() {
           to={user ? "/account/cart" : "/account/login"}
         >
           <ShoppingCartIcon />
+          {cart.length > 0 && (
+            <Badge
+              bg="danger"
+              className="position-absolute start-80 translate-middle"
+            >
+              {cart.length}
+              <span className="visually-hidden">items in cart"</span>
+            </Badge>
+          )}
         </Link>
       </Nav>
     </Navbar>
