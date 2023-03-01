@@ -27,6 +27,7 @@ import Shop from "./components/Shop/Shop";
 import Cart from "./components/ShoppingCart/Cart";
 import Wishlist from "./components/Wishlist/Wishlist";
 import ProductDetails from "./components/Product/ProductDetails";
+import Reset from "./components/ForgotPassword/Reset";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -64,38 +65,16 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/account/login" element={<Login />} />
                 <Route path="/account/signup" element={<SignUp />} />
-                <Route
-                  path="/account/user"
-                  element={<UserPage setWishlist={setWishlist} />}
-                />
-                <Route
-                  path="/account/wishlist"
-                  element={
-                    <Wishlist wishlist={wishlist} setWishlist={setWishlist} />
-                  }
-                />
+                <Route path="/account/user" element={<UserPage />} />
+                <Route path="/account/wishlist" element={<Wishlist />} />
                 <Route path="/account/edit" element={<EditDetails />} />
-                <Route
-                  path="/shop/:category"
-                  element={
-                    <Shop wishlist={wishlist} setWishlist={setWishlist} />
-                  }
-                />
-                <Route
-                  path="/account/cart"
-                  element={
-                    <Cart wishlist={wishlist} setWishlist={setWishlist} />
-                  }
-                />
+                <Route path="/shop/:category" element={<Shop />} />
+                <Route path="/account/cart" element={<Cart />} />
                 <Route
                   path="/products/:id/:name"
-                  element={
-                    <ProductDetails
-                      wishlist={wishlist}
-                      setWishlist={setWishlist}
-                    />
-                  }
+                  element={<ProductDetails />}
                 />
+                <Route path="/account/reset" element={<Reset />} />
               </Routes>
 
               <Footer />

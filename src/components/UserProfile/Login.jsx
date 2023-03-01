@@ -88,7 +88,7 @@ export default function Login() {
             </Link>
           </Col>
           <Col>
-            <Link className="loginQuestion" to="/account/signup">
+            <Link className="loginQuestion" to="/account/reset">
               Forgot Password?
             </Link>
           </Col>
