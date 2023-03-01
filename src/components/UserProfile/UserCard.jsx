@@ -1,9 +1,7 @@
 import Card from "react-bootstrap/Card";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { UserContext } from "../UserContext.js";
 
 import UserData from "./UserData";
 import API from "../../API/user";

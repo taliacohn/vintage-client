@@ -4,7 +4,6 @@ import { Card } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import popUp from "../../alerts/popup";
 import { handleAddToCart, handleAddToWishlist } from "../../API/index";
 
 export default function Product({
@@ -13,18 +12,17 @@ export default function Product({
   imgURL,
   price,
   user,
-  cartApi,
-  wishlistApi,
   setWishlist,
   wishlist,
+  cart,
+  setCart,
 }) {
   const navigate = useNavigate();
 
-  const isInWishlist = wishlist.some((item) => item.productID === id);
+  const isInWishlist = wishlist.some((item) => item.id === id);
 
   return (
     <Card style={{ width: "17rem", height: "35rem", margin: "2%" }}>
-      {console.log("Product ID: " + id)}
       <Link key={id} to={`/products/${id}/${name.replace(/\s+/g, "-")}`}>
         <Card.Img
           style={{ height: "20rem" }}
@@ -49,6 +47,9 @@ export default function Product({
                   isInWishlist,
                   user,
                   id,
+                  imgURL,
+                  price,
+                  name,
                   setWishlist,
                   wishlist,
                   window.location.pathname,
@@ -62,7 +63,17 @@ export default function Product({
             <Button
               variant="outline-secondary"
               onClick={() =>
-                handleAddToCart(user, window.location.pathname, id, navigate)
+                handleAddToCart(
+                  user,
+                  window.location.pathname,
+                  id,
+                  navigate,
+                  imgURL,
+                  price,
+                  name,
+                  cart,
+                  setCart
+                )
               }
             >
               Add to Cart

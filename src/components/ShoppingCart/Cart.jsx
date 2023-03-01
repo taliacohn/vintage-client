@@ -1,15 +1,16 @@
 import API from "../../API/cart";
 import { useState, useContext } from "react";
-import { UserContext } from "../UserContext.js";
+import { CartContext, UserContext, WishlistContext } from "../Contexts";
 import CartCards from "./CartCards";
 import { useEffect } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-export default function Cart(props) {
+export default function Cart() {
   const api = new API();
-  const [cartItems, setCartItems] = useState([]);
   const [total, setTotal] = useState(0);
   const { user } = useContext(UserContext);
+  const { wishlist, setWishlist } = useContext(WishlistContext);
+  const { cart, setCart } = useContext(CartContext);
   const currUser = user.currUser;
 
   const handleNewOrder = async () => {
@@ -21,7 +22,7 @@ export default function Cart(props) {
 
   const clearCart = (orderId) => {
     console.log(orderId);
-    cartItems.map((product) => {
+    cart.map((product) => {
       api.setProductsInOrder();
     });
   };
@@ -36,17 +37,12 @@ export default function Cart(props) {
   };
 
   useEffect(() => {
-    api.getCartItems(currUser.id).then((result) => setCartItems(result));
-    console.log(cartItems);
-  }, []);
-
-  useEffect(() => {
-    const newTotal = cartItems.reduce(
+    const newTotal = cart.reduce(
       (total, item) => total + Number(item.price),
       0
     );
     setTotal(newTotal.toFixed(2));
-  }, [cartItems]);
+  }, [cart]);
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
@@ -58,11 +54,11 @@ export default function Cart(props) {
                 Shopping Cart
               </h1>
             </div>
-            {cartItems.length <= 0 ? (
+            {cart.length <= 0 ? (
               <div>No items in cart.</div>
             ) : (
               <div>
-                {cartItems.map((item) => (
+                {cart.map((item) => (
                   <div key={item.id}>
                     <CartCards
                       id={item.id}
@@ -71,11 +67,11 @@ export default function Cart(props) {
                       price={item.price}
                       api={api}
                       setTotal={setTotal}
-                      setCartItems={setCartItems}
+                      setCartItems={setCart}
                       user={currUser}
-                      cartItems={cartItems}
-                      wishlist={props.wishlist}
-                      setWishlist={props.setWishlist}
+                      cartItems={cart}
+                      wishlist={wishlist}
+                      setWishlist={setWishlist}
                     />
                   </div>
                 ))}
