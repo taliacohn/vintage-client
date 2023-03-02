@@ -1,13 +1,13 @@
-import axios from "axios";
+import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 class userAPI {
   constructor() {
-    this.url = "http://localhost:3001";
+    this.url = 'https://second-love.onrender.com';
   }
 
   signup(firstName, lastName, email, password) {
-    return axios.post(this.url + "/users/signup", {
+    return axios.post(this.url + '/users/signup', {
       firstName: firstName,
       lastName: lastName,
       email: email,
@@ -16,21 +16,21 @@ class userAPI {
   }
 
   login(email, password) {
-    return axios.post(this.url + "/users/login", {
+    return axios.post(this.url + '/users/login', {
       email,
       password,
     });
   }
 
   async isLoggedIn() {
-    const result = await axios.get(this.url + "/login");
+    const result = await axios.get(this.url + '/login');
     console.log(result);
     return result.data;
   }
 
   logout() {
-    console.log("logging out..");
-    return axios.post(this.url + "/users/logout");
+    console.log('logging out..');
+    return axios.post(this.url + '/users/logout');
   }
 
   updateUser(

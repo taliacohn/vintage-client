@@ -1,9 +1,9 @@
-import axios from "axios";
+import axios from 'axios';
 axios.defaults.withCredentials = true;
 
 class cartAPI {
   constructor() {
-    this.url = "http://localhost:3001";
+    this.url = 'https://second-love.onrender.com';
   }
 
   getCartItems(userID) {
