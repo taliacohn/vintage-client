@@ -1,11 +1,10 @@
-import Card from "react-bootstrap/Card";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Pic from "../images/Talia-Cohn-Headshot.jpg";
+import Card from 'react-bootstrap/Card';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function About() {
-  const noProfPic =
-    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png";
+  const Pic =
+    'https://media.licdn.com/dms/image/C5603AQE8H9DeYVtOVw/profile-displayphoto-shrink_800_800/0/1517227284693?e=1683158400&v=beta&t=gH3K8qjmViYcjsRq8rHrKQ-geyI_5oB5oGo8vICJFTA';
 
   return (
     <Row className="d-flex">
@@ -13,11 +12,11 @@ function About() {
         <img
           className="pic m-5"
           src={Pic}
-          style={{ width: "25rem", height: "35rem" }}
+          style={{ width: '20rem', height: '20rem' }}
         ></img>
       </Col>
       <Col>
-        <Card className="orderHistoryCard mt-5 mb-5" style={{ width: "40rem" }}>
+        <Card className="orderHistoryCard mt-5 mb-5" style={{ width: '40rem' }}>
           <Card.Body>
             <Card.Title className="mb-4">About Second Love Vintage</Card.Title>
             <Card.Text>
