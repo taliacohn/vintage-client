@@ -13,6 +13,7 @@ function About() {
           className="pic m-5"
           src={Pic}
           style={{ width: '20rem', height: '20rem' }}
+          alt="CEO, Talia Cohn"
         ></img>
       </Col>
       <Col>

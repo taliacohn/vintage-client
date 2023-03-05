@@ -1,34 +1,35 @@
-import { Row, Col, Card, Button } from "react-bootstrap";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import { Row, Col, Card, Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import { handleAddToCart } from '../../API/index';
 
 export default function WishlistCards(props) {
-  const user = props.user;
-  console.log(user);
+  const navigate = useNavigate();
 
   const handleDeleteFromWishlist = async (id) => {
     props.wishlistApi
-      .deleteFromWishlist(id, user.id)
+      .deleteFromWishlist(id, props.user.currUser.id)
       .then(() => {
         props.setWishlist(props.wishlist.filter((i) => i.id !== props.id));
       })
       .catch((error) => {
-        console.error("Error deleting cart item", error);
+        console.error('Error removing item', error);
       });
   };
 
   console.log(props.wishlist);
 
-  const handleAddToCart = async (id) => {
-    props.cartApi
-      .addToCart(id, user.id)
-      .then(() => {
-        props.setWishlist(props.wishlist.filter((i) => i.id !== props.id));
-      })
-      .catch((error) => {
-        console.error("Error deleting wishlist item", error);
-      });
-  };
+  // const handleAddToCart = async (id) => {
+  //   props.cartApi
+  //     .addToCart(id, user.id)
+  //     .then(() => {
+  //       props.setWishlist(props.wishlist.filter((i) => i.id !== props.id));
+  //     })
+  //     .catch((error) => {
+  //       console.error('Error deleting wishlist item', error);
+  //     });
+  // };
 
   return (
     <>
@@ -53,7 +54,19 @@ export default function WishlistCards(props) {
               <Button
                 variant="outline-none"
                 className="icon px-1 py-4"
-                onClick={() => handleAddToCart(props.id)}
+                onClick={() =>
+                  handleAddToCart(
+                    props.user,
+                    window.location.pathname,
+                    props.id,
+                    navigate,
+                    props.imgURL,
+                    props.price,
+                    props.name,
+                    props.cart,
+                    props.setCart
+                  )
+                }
               >
                 <AddShoppingCartIcon />
               </Button>

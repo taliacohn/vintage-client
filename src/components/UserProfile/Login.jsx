@@ -1,44 +1,44 @@
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Form from "react-bootstrap/Form";
-import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
-import { UserContext } from "../Contexts";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { UserContext } from '../Contexts';
 
-import userAPI from "../../API/user";
-import popUp from "../../alerts/popup";
+import userAPI from '../../API/user';
+import popUp from '../../alerts/popup';
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const navigate = useNavigate();
   const userApi = new userAPI();
 
-  const { user, setUser } = useContext(UserContext);
+  const { setUser } = useContext(UserContext);
 
   function login() {
     userApi
       .login(email, password)
       .then((result) => {
-        popUp("success", "Login Successful", "Welcome " + email).then((res) => {
+        popUp('success', 'Login Successful', 'Welcome ' + email).then((res) => {
           if (res.isConfirmed) {
-            console.log("confirmed login");
+            console.log('confirmed login');
             console.log(result);
             const currUser = result.data.user;
             console.log(currUser);
             setUser({ currUser });
             const redirectPath =
-              sessionStorage.getItem("redirectPath") || "/account/user";
-            sessionStorage.removeItem("redirectPath");
+              sessionStorage.getItem('redirectPath') || '/account/user';
+            sessionStorage.removeItem('redirectPath');
             navigate(redirectPath);
           }
         });
       })
       .catch((error) => {
         console.log(error);
-        console.log("error is: " + error.response.data.message);
-        popUp("error", "Login Unsuccessful", error.response.data.message);
+        console.log('error is: ' + error.response.data.message);
+        popUp('error', 'Login Unsuccessful', error.response.data.message);
       });
   }
 

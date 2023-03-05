@@ -3,7 +3,7 @@ axios.defaults.withCredentials = true;
 
 class forgotPasswordAPI {
   constructor() {
-    this.url = 'https://second-love.onrender.com';
+    this.url = 'http://localhost:3001';
   }
 
   submitEmail(email) {

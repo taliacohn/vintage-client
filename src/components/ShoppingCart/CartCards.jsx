@@ -1,10 +1,9 @@
-import { Row, Col, Card, Button } from "react-bootstrap";
-import DeleteIcon from "@mui/icons-material/Delete";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import API from "../../API/wishlist";
-import { useNavigate } from "react-router-dom";
-import { handleAddToCart, handleAddToWishlist } from "../../API/index";
+import { Row, Col, Card, Button } from 'react-bootstrap';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useNavigate } from 'react-router-dom';
+import { handleAddToWishlist } from '../../API/index';
 
 export default function CartCards(props) {
   const api = props.api;
@@ -24,7 +23,7 @@ export default function CartCards(props) {
         );
       })
       .catch((error) => {
-        console.error("Error deleting cart item", error);
+        console.error('Error deleting cart item', error);
       });
   };
 

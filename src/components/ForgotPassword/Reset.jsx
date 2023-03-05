@@ -7,7 +7,6 @@ import popUp from '../../alerts/popup';
 
 export default function Reset() {
   const [emailReg, setEmailReg] = useState('');
-  const [passwordReg, setPasswordReg] = useState('');
 
   const api = new API();
 

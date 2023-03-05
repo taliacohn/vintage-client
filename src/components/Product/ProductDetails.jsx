@@ -1,19 +1,18 @@
-import { useEffect, useState, useContext } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Card, Col, Container, Row, Button } from "react-bootstrap";
+import { useEffect, useState, useContext } from 'react';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { Card, Col, Container, Row, Button } from 'react-bootstrap';
 
-import API from "../../API/products";
-import ProductDetailsImages from "./ProductDetailsImages";
-import { handleAddToCart, handleAddToWishlist } from "../../API/index";
-import { UserContext } from "../Contexts";
+import API from '../../API/products';
+import ProductDetailsImages from './ProductDetailsImages';
+import { handleAddToCart, handleAddToWishlist } from '../../API/index';
+import { UserContext } from '../Contexts';
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export default function ProductDetails(props) {
   const { id } = useParams();
-  console.log(id);
   const { user } = useContext(UserContext);
   const [product, setProduct] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -30,9 +29,9 @@ export default function ProductDetails(props) {
     if (product) {
       setSelectedImage(product.imgURLs[0]);
     }
-  }, [id]);
+  }, [id, product]);
 
-  console.log("in product details");
+  console.log('in product details');
 
   return (
     <div>
@@ -51,23 +50,23 @@ export default function ProductDetails(props) {
               selectedImageUrl={selectedImageUrl || product.imgURLs[0]}
             />
             <Col xs={12} md={6}>
-              <Card className="border-0" style={{ width: "500px" }}>
+              <Card className="border-0" style={{ width: '500px' }}>
                 <Card.Body>
                   <Card.Title
                     className="pb-3"
-                    style={{ width: "400px", fontSize: "2rem" }}
+                    style={{ width: '400px', fontSize: '2rem' }}
                   >
                     {product.name}
                   </Card.Title>
                   <Card.Text
                     className="px-3 pb-4"
-                    style={{ fontSize: "1.5rem" }}
+                    style={{ fontSize: '1.5rem' }}
                   >
                     ₪{product.price}
                   </Card.Text>
                   <div
                     className="d-flex justify-content-between mx-5"
-                    style={{ width: "300px" }}
+                    style={{ width: '300px' }}
                   >
                     <Button
                       className="px-4"
@@ -104,7 +103,7 @@ export default function ProductDetails(props) {
                   <Card.Title className="mt-5">Product Details</Card.Title>
                   <Card.Text className="pt-2">
                     {product.description
-                      .split(".")
+                      .split('.')
                       .filter(Boolean)
                       .map((item) => (
                         <li key={item}>{item}</li>
